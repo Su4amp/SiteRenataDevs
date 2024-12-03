@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Veículos</title>
+    <link rel="stylesheet" href="csc/style.css">
+    
+</head>
+<body>
+    <!-- Cabeçalho com imagem decorativa -->
+    <header>
+        <img src="assets/hello-kitt-perfil.webp" alt="Imagem Decorativa">
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <h1>Gestão de Veículos e Reservas</h1>
+
+        <!-- Cadastro de Veículos -->
+        <form id="veiculoForm">
+            <h2>Cadastrar Veículo</h2>
+            <label for="veiculo">Nome do Veículo:</label>
+            <input type="text" id="veiculo" required>
+            <button type="submit">Cadastrar Veículo</button>
+        </form>
+
+        <!-- Cadastro de Clientes -->
+        <form id="clienteForm">
+            <h2>Cadastrar Cliente</h2>
+            <label for="cliente">Nome do Cliente:</label>
+            <input type="text" id="cliente" required>
+            <button type="submit">Cadastrar Cliente</button>
+        </form>
+
+        <!-- Cadastro de Reservas -->
+        <form id="reservaForm">
+            <h2>Cadastrar Reserva</h2>
+            <label for="reservaCliente">Cliente:</label>
+            <input type="text" id="reservaCliente" required>
+            <label for="reservaVeiculo">Veículo:</label>
+            <input type="text" id="reservaVeiculo" required>
+            <button type="submit">Cadastrar Reserva</button>
+        </form>
+
+        <!-- Informações -->
+        <div class="output">
+            <h2>Informações</h2>
+            <p id="totalClientes">Total de Clientes: 0</p>
+            <p id="clienteMaisReservas">Cliente com Mais Reservas: Não calculado</p>
+        </div>
+    </main>
+
+    <script>
+        // Simulações locais de dados
+        const clientes = [];
+        const reservas = [];
+
+        // Atualiza as informações na interface
+        function atualizarInformacoes() {
+            const totalClientesEl = document.getElementById('totalClientes');
+            const clienteMaisReservasEl = document.getElementById('clienteMaisReservas');
+
+            // Total de clientes
+            totalClientesEl.textContent = `Total de Clientes: ${clientes.length}`;
+
+            // Cliente com mais reservas
+            if (reservas.length > 0) {
+                const reservasPorCliente = reservas.reduce((acc, reserva) => {
+                    acc[reserva.cliente] = (acc[reserva.cliente] || 0) + 1;
+                    return acc;
+                }, {});
+
+                const clienteComMaisReservas = Object.entries(reservasPorCliente)
+                    .sort((a, b) => b[1] - a[1])[0][0];
+
+                clienteMaisReservasEl.textContent = `Cliente com Mais Reservas: ${clienteComMaisReservas}`;
+            } else {
+                clienteMaisReservasEl.textContent = 'Cliente com Mais Reservas: Não calculado';
+            }
+        }
+
+        // Cadastro de veículos
+        document.getElementById('veiculoForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Veículo cadastrado com sucesso!');
+            e.target.reset();
+        });
+
+        // Cadastro de clientes
+        document.getElementById('clienteForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const clienteNome = document.getElementById('cliente').value;
+            clientes.push(clienteNome);
+            alert(`Cliente ${clienteNome} cadastrado com sucesso!`);
+            atualizarInformacoes();
+            e.target.reset();
+        });
+
+        // Cadastro de reservas
+        document.getElementById('reservaForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const cliente = document.getElementById('reservaCliente').value;
+            const veiculo = document.getElementById('reservaVeiculo').value;
+
+            reservas.push({ cliente, veiculo });
+            alert(`Reserva cadastrada para o cliente ${cliente} no veículo ${veiculo}.`);
+            atualizarInformacoes();
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+header {
+    width: 100%;
+    overflow: hidden;
+}
+header img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 300px; /* Define uma altura máxima */
+    object-fit: cover; /* Garante que a imagem seja ajustada sem distorções */
+}
+main {
+    padding: 20px;
+}
+form, .output {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+}
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+input, button {
+    padding: 8px;
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+button {
+    background-color: #ff50b0;
+    color: white;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #c93385;
+}
